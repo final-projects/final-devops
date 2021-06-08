@@ -1,5 +1,8 @@
 package org.ifinalframework.devops.core.api;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -7,6 +10,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import org.ifinalframework.devops.core.domain.Parameter;
 import org.ifinalframework.json.Json;
@@ -28,7 +32,7 @@ import org.junit.jupiter.api.Test;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-class DebugApiControllerTest {
+class MethodApiControllerTest {
 
     @Resource
     private MockMvc mvc;
@@ -43,22 +47,15 @@ class DebugApiControllerTest {
         args.add(parameter);
 
         MvcResult mvcResult = mvc.perform(
-            MockMvcRequestBuilders.get("/devops/debug")
-                .param("clazz", HelloController.class.getCanonicalName())
+            get("/devops/methods/debug")
+                .param("class", HelloController.class.getCanonicalName())
                 .param("method", "hello")
                 .param("args", Json.toJson(args))
                 .accept(MediaType.APPLICATION_JSON)
         ) // 断言返回结果是json
+            .andDo(print())
             .andReturn();// 得到返回结果
 
-        MockHttpServletResponse response = mvcResult.getResponse();
-        //拿到请求返回码
-        int status = response.getStatus();
-        //拿到结果
-        String contentAsString = response.getContentAsString();
-
-        System.err.println(status);
-        System.err.println(contentAsString);
 
     }
 

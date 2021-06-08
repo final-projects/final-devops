@@ -30,13 +30,13 @@ import lombok.Setter;
  * @since 1.0.0
  */
 @RestController
-@RequestMapping("/devops/debug")
-public class DebugApiController implements ApplicationContextAware {
+@RequestMapping("/devops/methods")
+public class MethodApiController implements ApplicationContextAware {
 
     @Setter
     private ApplicationContext applicationContext;
 
-    @RequestMapping()
+    @RequestMapping("/debug")
     public Object debug(
         @RequestParam(value = "name", required = false) String name,
         @RequestParam(value = "class", required = false) Class<?> clazz,
