@@ -3,20 +3,18 @@ package org.ifinalframework.devops.core.api;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.ifinalframework.devops.core.domain.Parameter;
 import org.ifinalframework.json.Json;
 import org.ifinalframework.web.annotation.bind.RequestJsonParam;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -41,7 +39,8 @@ public class MethodApiController implements ApplicationContextAware {
         @RequestParam(value = "name", required = false) String name,
         @RequestParam(value = "class", required = false) Class<?> clazz,
         @RequestParam(value = "method") String methodName,
-        @RequestJsonParam(required = false) List<Parameter> args)
+        @RequestJsonParam(value = "types", required = false) Class<?>[] types,
+        @RequestJsonParam(value = "args", required = false) String[] args)
         throws InvocationTargetException, IllegalAccessException {
 
         try {
@@ -60,23 +59,20 @@ public class MethodApiController implements ApplicationContextAware {
             }
 
             // 3. find method
-            final Method method = CollectionUtils.isEmpty(args)
-                ? ReflectionUtils.findMethod(clazz, methodName)
-                : ReflectionUtils
-                    .findMethod(clazz, methodName, args.stream().map(Parameter::getClazz).toArray(Class[]::new));
+            final Method method = ReflectionUtils.findMethod(clazz, methodName, types);
 
             ReflectionUtils.makeAccessible(Objects.requireNonNull(method));
 
             // 4. invoke the method
-            if (CollectionUtils.isEmpty(args)) {
+            if (Objects.isNull(args)) {
                 return method.invoke(bean);
             } else {
-
+                // 5. convert args
                 final Type[] parameterTypes = method.getGenericParameterTypes();
                 final AtomicInteger i = new AtomicInteger();
 
-                final Object[] values = args.stream()
-                    .map(it -> Json.toObject(it.getValue(), parameterTypes[i.getAndIncrement()]))
+                final Object[] values = Arrays.stream(args)
+                    .map(it -> Json.toObject(it, parameterTypes[i.getAndIncrement()]))
                     .toArray();
 
                 return method.invoke(bean, values);
