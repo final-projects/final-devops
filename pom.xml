@@ -24,6 +24,7 @@
         <module>final-devops-api</module>
         <module>final-devops-docs</module>
         <module>final-devops-java</module>
+        <module>final-devops-demo</module>
     </modules>
     <parent>
         <groupId>org.ifinalframework.project</groupId>

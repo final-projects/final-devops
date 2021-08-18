@@ -32,6 +32,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/devops/java")
 public class JavaApiController {
 
+    /**
+     * return the java decompile content.
+     *
+     * @param clazz  target class
+     * @param method target method, could be {@code null}.
+     * @return the java decompile.
+     */
     @GetMapping("/jad")
     public String jad(@RequestParam("class") Class<?> clazz, @RequestParam(value = "method", required = false) String method) {
         return Decompiler.decompile(clazz, method);
