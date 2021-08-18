@@ -23,34 +23,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>final-devops-core</artifactId>
+    <artifactId>final-devops-docs</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.ifinalframework</groupId>
-            <artifactId>final-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webflux</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinalframework.javadoc</groupId>
-            <artifactId>javadoc-model</artifactId>
-            <version>0.0.1-alpha</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-            <version>3.0.3</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
 </project>

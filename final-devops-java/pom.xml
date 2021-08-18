@@ -14,7 +14,8 @@
   ~ limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>final-devops</artifactId>
@@ -23,34 +24,22 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>final-devops-core</artifactId>
+    <artifactId>final-devops-java</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
     <dependencies>
         <dependency>
+            <groupId>org.ifinalframework.devops</groupId>
+            <artifactId>final-devops-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.ifinalframework</groupId>
-            <artifactId>final-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webflux</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.ifinalframework.javadoc</groupId>
-            <artifactId>javadoc-model</artifactId>
-            <version>0.0.1-alpha</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-            <version>3.0.3</version>
-            <scope>provided</scope>
-            <optional>true</optional>
+            <artifactId>final-java</artifactId>
         </dependency>
     </dependencies>
+
 </project>

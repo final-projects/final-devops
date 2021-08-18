@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2020-2021 the original author or authors.
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
         <module>final-devops-core</module>
+        <module>final-devops-redis</module>
+        <module>final-devops-api</module>
+        <module>final-devops-docs</module>
+        <module>final-devops-java</module>
     </modules>
     <parent>
         <groupId>org.ifinalframework.project</groupId>
         <artifactId>final-project</artifactId>
-        <version>1.2.1-SNAPSHOT</version>
+        <version>1.2.2-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.ifinalframework.devops</groupId>
     <artifactId>final-devops</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.2.2-SNAPSHOT</version>
     <name>final-devops</name>
     <description>Final Devops Project base on Spring Boot</description>
     <properties>
@@ -26,22 +45,63 @@
             <dependency>
                 <groupId>org.ifinalframework</groupId>
                 <artifactId>final-framework</artifactId>
-                <version>1.2.1-SNAPSHOT</version>
+                <version>1.2.2-SNAPSHOT</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework.data</groupId>
                 <artifactId>final-data</artifactId>
-                <version>1.2.1-SNAPSHOT</version>
+                <version>1.2.2-SNAPSHOT</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.devops</groupId>
+                <artifactId>final-devops-core</artifactId>
+                <version>1.2.2-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.devops</groupId>
+                <artifactId>final-devops-api</artifactId>
+                <version>1.2.2-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ifinalframework.devops</groupId>
+                <artifactId>final-devops-redis</artifactId>
+                <version>1.2.2-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <doclet>org.ifinalframework.javadoc.JsonDoclet</doclet>
+                    <docletArtifacts>
+                        <docletArtifact>
+                            <groupId>org.ifinalframework.javadoc</groupId>
+                            <artifactId>javadoc-doclet</artifactId>
+                            <version>0.0.1-alpha</version>
+                        </docletArtifact>
+                    </docletArtifacts>
+                    <show>private</show>
+                    <useStandardDocletOptions>false</useStandardDocletOptions>
+                    <outputDirectory>${project.basedir}/target/classes/META-INF/docs/json</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
