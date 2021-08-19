@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: devops2
+  cloud:
+    discovery:
+      enabled: true
+    zookeeper:
+      discovery:
+        root: final-cloud
+final:
+  cloud:
+    discovery:
+      #      address: zookeeper.ifinal.io:2181
+      address: localhost:2181

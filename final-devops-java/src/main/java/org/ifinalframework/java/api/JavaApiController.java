@@ -15,11 +15,14 @@
 
 package org.ifinalframework.java.api;
 
+import lombok.extern.slf4j.Slf4j;
 import org.ifinalframework.java.Decompiler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.ifinalframework.java.Instrumentations;
+import org.ifinalframework.java.Redefiner;
+import org.ifinalframework.java.compiler.Compiler;
+import org.springframework.web.bind.annotation.*;
+
+import java.lang.instrument.Instrumentation;
 
 /**
  * JavaApiController.
@@ -28,8 +31,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1.2.2
  * @since 1.2.2
  */
+@Slf4j
 @RestController
-@RequestMapping("/devops/java")
+@RequestMapping("/java")
 public class JavaApiController {
 
     /**
@@ -42,5 +46,27 @@ public class JavaApiController {
     @GetMapping("/jad")
     public String jad(@RequestParam("class") Class<?> clazz, @RequestParam(value = "method", required = false) String method) {
         return Decompiler.decompile(clazz, method);
+    }
+
+
+    @PostMapping("/compile")
+    public void compile(@RequestParam("class") Class<?> clazz, String source) {
+        logger.info("compile class={},source={}", clazz, source);
+        Instrumentation instrumentation = Instrumentations.get();
+
+        ClassLoader classLoader = clazz.getClassLoader();
+
+        Compiler compiler = new Compiler(classLoader);
+
+        String className = clazz.getCanonicalName();
+        compiler.addSource(className, source);
+
+        compiler.compile();
+    }
+
+    @PostMapping("/replace")
+    public void replace(@RequestParam("class") Class<?> clazz, String source) {
+        logger.info("replace class={},source={}", clazz, source);
+        Redefiner.redefine(clazz, source);
     }
 }
