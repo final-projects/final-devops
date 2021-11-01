@@ -34,7 +34,7 @@
     </parent>
     <groupId>org.ifinalframework.devops</groupId>
     <artifactId>final-devops</artifactId>
-    <version>1.2.2-SNAPSHOT</version>
+    <version>1.2.2</version>
     <name>final-devops</name>
     <description>Final Devops Project base on Spring Boot</description>
     <properties>
@@ -60,17 +60,17 @@
             <dependency>
                 <groupId>org.ifinalframework.devops</groupId>
                 <artifactId>final-devops-core</artifactId>
-                <version>1.2.2-SNAPSHOT</version>
+                <version>1.2.2</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework.devops</groupId>
                 <artifactId>final-devops-api</artifactId>
-                <version>1.2.2-SNAPSHOT</version>
+                <version>1.2.2</version>
             </dependency>
             <dependency>
                 <groupId>org.ifinalframework.devops</groupId>
                 <artifactId>final-devops-redis</artifactId>
-                <version>1.2.2-SNAPSHOT</version>
+                <version>1.2.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -20,7 +20,7 @@
     <parent>
         <artifactId>final-devops</artifactId>
         <groupId>org.ifinalframework.devops</groupId>
-        <version>1.2.2-SNAPSHOT</version>
+        <version>1.2.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.ifinalframework.devops</groupId>
             <artifactId>final-devops-java</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
