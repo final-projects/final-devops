@@ -89,10 +89,7 @@ public class LoggerApiController implements BeanFactoryAware, InitializingBean {
         @Override
         public boolean test(final String s) {
 
-            return packages.stream()
-                    .filter(s::startsWith)
-                    .findFirst()
-                    .isPresent();
+            return packages.stream().anyMatch(s::startsWith);
 
         }
 
